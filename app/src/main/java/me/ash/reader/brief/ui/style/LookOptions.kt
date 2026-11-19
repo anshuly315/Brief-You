@@ -149,3 +149,41 @@ private fun LookSlider(
         }
     }
 }
+
+/** Brief You: the bottom bar's thickness, its distance from the sides, and its distance from the bottom. */
+@Composable
+fun BottomBarSections() {
+    val context = LocalContext.current
+    BriefLook.init(context)
+    val labels = true
+    Subtitle(modifier = Modifier.padding(horizontal = 24.dp), text = stringResource(R.string.bottom_bar))
+    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        LookSlider(
+            icon = Icons.Outlined.CropSquare,
+            label = stringResource(R.string.bottom_bar_thickness),
+            value = BriefLook.barHeightDp(labels),
+            range = 48f..100f,
+            steps = 25,
+            onChange = { BriefLook.setBarHeight(context, it) },
+        )
+        Spacer(Modifier.size(2.dp))
+        LookSlider(
+            icon = Icons.Outlined.CropSquare,
+            label = stringResource(R.string.bottom_bar_sides),
+            value = BriefLook.barSideDp(),
+            range = 0f..32f,
+            steps = 15,
+            onChange = { BriefLook.setBarSide(context, it) },
+        )
+        Spacer(Modifier.size(2.dp))
+        LookSlider(
+            icon = Icons.Outlined.CropSquare,
+            label = stringResource(R.string.bottom_bar_bottom),
+            value = BriefLook.barBottom,
+            range = 0f..32f,
+            steps = 15,
+            onChange = { BriefLook.setBarBottom(context, it) },
+        )
+        TextButton(onClick = { BriefLook.resetBar(context) }) { Text(stringResource(R.string.list_look_reset)) }
+    }
+}

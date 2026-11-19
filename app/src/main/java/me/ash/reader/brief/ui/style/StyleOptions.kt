@@ -71,6 +71,8 @@ fun StyleOptionsSections() {
         }
     }
 
+    BottomBarSections()
+
     Subtitle(modifier = Modifier.padding(horizontal = 24.dp), text = stringResource(R.string.glass_effect))
     SettingGroup {
         SettingItem(

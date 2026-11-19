@@ -637,4 +637,8 @@
     <string name="design_expressive_desc">Rounder shapes, a floating bottom bar, bolder pills</string>
     <string name="home_feeds_tree">Feeds tree (groups and feeds)</string>
     <string name="home_article_list">Article list (opens on your unread articles)</string>
+    <string name="bottom_bar">Bottom bar</string>
+    <string name="bottom_bar_thickness">Thickness</string>
+    <string name="bottom_bar_sides">Distance from the sides</string>
+    <string name="bottom_bar_bottom">Distance from the bottom</string>
 </resources>

@@ -94,7 +94,7 @@ fun FilterBarSpace(style: Int) {
     )
     Column(modifier = Modifier.fillMaxWidth()) {
         Spacer(modifier = Modifier.height(pill))
-        Spacer(modifier = Modifier.height(filterBarContainerHeight(style) + FILTER_BAR_TOP_PADDING))
+        Spacer(modifier = Modifier.height(filterBarContainerHeight(style) + FILTER_BAR_TOP_PADDING + me.ash.reader.brief.ui.style.BriefLook.barBottom.dp))
         Spacer(modifier = Modifier.windowInsetsBottomHeight(NavigationBarDefaults.windowInsets))
     }
 }

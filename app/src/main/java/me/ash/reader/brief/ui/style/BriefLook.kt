@@ -42,6 +42,41 @@ object BriefLook {
     var corner by mutableFloatStateOf(CORNER_DEFAULT)
         private set
 
+    /** The bottom bar's own measures in dp; -1 means "automatic" (it depends on the design style). */
+    var barHeight by mutableFloatStateOf(-1f)
+        private set
+    var barSide by mutableFloatStateOf(-1f)
+        private set
+    var barBottom by mutableFloatStateOf(0f)
+        private set
+
+    private val classic get() = BriefStyle.design == DesignStyle.Classic
+    /** What "automatic" means for each measure, in this design style. */
+    fun autoBarHeight(labels: Boolean) = if (classic) 72f else if (labels) 88f else 76f
+    fun autoBarSide() = if (classic) 0f else 20f
+    fun barHeightDp(labels: Boolean) = if (barHeight >= 0f) barHeight else autoBarHeight(labels)
+    fun barSideDp() = if (barSide >= 0f) barSide else autoBarSide()
+
+    fun setBarHeight(context: Context, value: Float) {
+        init(context); barHeight = value.coerceIn(48f, 100f)
+        prefs(context).edit { putFloat("barHeight", barHeight) }
+    }
+
+    fun setBarSide(context: Context, value: Float) {
+        init(context); barSide = value.coerceIn(0f, 32f)
+        prefs(context).edit { putFloat("barSide", barSide) }
+    }
+
+    fun setBarBottom(context: Context, value: Float) {
+        init(context); barBottom = value.coerceIn(0f, 32f)
+        prefs(context).edit { putFloat("barBottom", barBottom) }
+    }
+
+    fun resetBar(context: Context) {
+        init(context); barHeight = -1f; barSide = -1f; barBottom = 0f
+        prefs(context).edit { remove("barHeight"); remove("barSide"); remove("barBottom") }
+    }
+
     fun init(context: Context) {
         if (ready) return
         val prefs = prefs(context)
@@ -49,6 +84,9 @@ object BriefLook {
         density = ListDensity.entries.firstOrNull { it.name == prefs.getString("density", null) } ?: ListDensity.Comfortable
         imageSize = prefs.getFloat("imageSize", IMAGE_DEFAULT).coerceIn(48f, 140f)
         corner = prefs.getFloat("corner", CORNER_DEFAULT).coerceIn(0f, 32f)
+        barHeight = prefs.getFloat("barHeight", -1f)
+        barSide = prefs.getFloat("barSide", -1f)
+        barBottom = prefs.getFloat("barBottom", 0f)
         ready = true
     }
 

@@ -40,10 +40,8 @@ import me.ash.reader.ui.theme.palette.onDark
 
 /** A tall bar, like a music player's. Taller than the stock navigation bar. */
 fun filterBarContainerHeight(filterBarStyle: Int): Dp =
-    when (filterBarStyle) {
-        FlowFilterBarStylePreference.Icon.value -> 76.dp
-        else -> 88.dp
-    }
+    // Brief You: the height can be set (Color & Style > Bottom bar); automatic is 88/76 dp, or 72 in Classic.
+    me.ash.reader.brief.ui.style.BriefLook.barHeightDp(filterBarStyle != FlowFilterBarStylePreference.Icon.value).dp
 
 /**
  * The gap under everything that floats at the bottom of the screen: the reading page's pill (above
@@ -73,6 +71,7 @@ fun BriefFilterBar(
     val containerHeight = filterBarContainerHeight(filterBarStyle)
     // Brief You: Classic Material 3 is a flat full-width bar; Expressive is the floating rounded bar.
     me.ash.reader.brief.ui.style.BriefStyle.init(LocalView.current.context)
+    me.ash.reader.brief.ui.style.BriefLook.init(LocalView.current.context)
     val classic = me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic
 
     // A fade to black behind the bar: clear at the top, fully black from the bottom of the bar down
@@ -106,7 +105,7 @@ fun BriefFilterBar(
                     else Modifier
                 )
                 .windowInsetsPadding(NavigationBarDefaults.windowInsets)
-                .padding(start = if (classic) 0.dp else 20.dp, end = if (classic) 0.dp else 20.dp, top = if (classic) 0.dp else FILTER_BAR_TOP_PADDING)
+                .padding(start = me.ash.reader.brief.ui.style.BriefLook.barSideDp().dp, end = me.ash.reader.brief.ui.style.BriefLook.barSideDp().dp, top = if (classic) 0.dp else FILTER_BAR_TOP_PADDING, bottom = me.ash.reader.brief.ui.style.BriefLook.barBottom.dp)
     ) {
     val barColor = if (classic) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.surfaceColorAtElevation(filterBarTonalElevation)
     // Brief You: glass when the switch is on (needs a glass source on the page behind it).
