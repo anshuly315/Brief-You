@@ -1,5 +1,5 @@
 {
- "note": "Starter list. Addresses are NOT yet checked: run tools/validate_catalogue.py and remove or fix any that fail.",
+ "note": "Starter list for Add Feed. Addresses are NOT yet checked: run tools/validate_catalogue.py and remove or fix any that fail.",
  "feeds": [
   {
    "title": "BBC News, World",
