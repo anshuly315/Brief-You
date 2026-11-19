@@ -57,6 +57,10 @@ class PressFeel internal constructor(
  */
 @Composable
 fun rememberPressFeel(rest: Dp, held: Dp, bumps: Int = 0, squeezeTo: Float = 0.96f): PressFeel {
+    // Brief You: Classic Material 3 has about half the corner size of Expressive on every tile.
+    val classic = me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic
+    val rest = if (classic) rest * 0.5f else rest
+    val held = if (classic) held * 0.5f else held
     val interaction = remember { MutableInteractionSource() }
     val pressed by interaction.collectIsPressedAsState()
     val bounce = spring<Float>(dampingRatio = 0.45f, stiffness = Spring.StiffnessMediumLow)

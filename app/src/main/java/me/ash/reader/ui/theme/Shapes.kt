@@ -13,6 +13,15 @@ val Shapes = Shapes(
     extraLarge = RoundedCornerShape(28.0.dp)
 )
 
+// Brief You: the smaller shape set of Classic Material 3.
+val ClassicShapes = Shapes(
+    extraSmall = RoundedCornerShape(2.0.dp),
+    small = RoundedCornerShape(4.0.dp),
+    medium = RoundedCornerShape(8.0.dp),
+    large = RoundedCornerShape(10.0.dp),
+    extraLarge = RoundedCornerShape(16.0.dp)
+)
+
 @Stable
 val Shape20 = RoundedCornerShape(20.0.dp)
 

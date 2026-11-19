@@ -89,7 +89,8 @@ fun AppTheme(
                     LocalBasicFonts.current
                         .asTypography(LocalContext.current)
                         .applyTextDirection(),
-                shapes = Shapes,
+                // Brief You: Classic Material 3 uses smaller shapes (Color & Style > Design style).
+                shapes = if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) ClassicShapes else Shapes,
                 content = content,
             )
         }

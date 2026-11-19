@@ -10,12 +10,14 @@ import androidx.compose.ui.unit.dp
  * nested inside something smaller (a dialog, a card) use the nested ones.
  */
 object Group {
-    val Outer = 24.dp
-    val Inner = 6.dp
+    // Brief You: Classic Material 3 (Color & Style > Design style) uses smaller corners everywhere.
+    private val classic get() = me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic
+    val Outer get() = if (classic) 12.dp else 24.dp
+    val Inner get() = if (classic) 4.dp else 6.dp
     /** The space between two rows (draw each row with half of it above and below). */
     val Gap = 3.dp
-    val NestedOuter = 16.dp
-    val NestedInner = 4.dp
+    val NestedOuter get() = if (classic) 10.dp else 16.dp
+    val NestedInner get() = if (classic) 3.dp else 4.dp
 }
 
 /**
