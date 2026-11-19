@@ -172,6 +172,7 @@ private fun Segment(
             // A barely-there tone, so the buttons don't pull the eye; an action that is on
             // (searching, marking as read) gets the soft accent tone.
             if (action.selected) MaterialTheme.colorScheme.secondaryContainer
+            else if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) Color.Transparent // Brief You: Classic has plain icons, no button backgrounds
             else MaterialTheme.colorScheme.surfaceContainer,
             effects,
             label = "container",

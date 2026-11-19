@@ -41,6 +41,8 @@ fun SettingGroup(modifier: Modifier = Modifier, content: @Composable () -> Unit)
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(Group.Outer))
                 .drawBehind {
+                    // Brief You: Classic Material 3 draws settings as plain rows, no card (like Smart RSS).
+                    if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) return@drawBehind
                     val count = rows.size
                     rows.forEachIndexed { index, (top, height) ->
                         val outline =

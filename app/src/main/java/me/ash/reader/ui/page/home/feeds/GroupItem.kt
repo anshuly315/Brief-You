@@ -112,7 +112,8 @@ inline fun GroupWithFeedsContainer(
             .padding(top = top) // Brief You
             .padding(horizontal = 16.dp)
             .clip(shape) // Brief You
-            .background(MaterialTheme.colorScheme.surfaceContainerLow),
+            // Brief You: Classic Material 3 shows the feeds as plain rows, no card behind them.
+            .background(if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surfaceContainerLow),
         content = { content() }
     )
 }
