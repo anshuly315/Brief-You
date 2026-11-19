@@ -40,3 +40,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Rebuild trigger: signing secrets added in the fork.
