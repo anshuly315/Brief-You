@@ -17,9 +17,9 @@ val Shapes = Shapes(
 val ClassicShapes = Shapes(
     extraSmall = RoundedCornerShape(2.0.dp),
     small = RoundedCornerShape(4.0.dp),
-    medium = RoundedCornerShape(8.0.dp),
-    large = RoundedCornerShape(10.0.dp),
-    extraLarge = RoundedCornerShape(16.0.dp)
+    medium = RoundedCornerShape(6.0.dp),
+    large = RoundedCornerShape(8.0.dp),
+    extraLarge = RoundedCornerShape(12.0.dp)
 )
 
 @Stable

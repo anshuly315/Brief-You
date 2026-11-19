@@ -59,8 +59,9 @@ private val ButtonWidth = 48.dp
 private val PressedExtraWidth = 12.dp
 private val CircleSize = 40.dp
 private val SquircleCorner = 12.dp
-private val OuterCorner = 20.dp
-private val InnerCorner = 6.dp
+// Brief You: Classic Material 3 has squarer buttons.
+private val OuterCorner get() = if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) 8.dp else 20.dp
+private val InnerCorner get() = if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) 2.dp else 6.dp
 private val GroupGap = 2.dp
 
 /** A single tonal circle button (Settings, Back) with an optional red dot. Pressed, it becomes a squircle. */

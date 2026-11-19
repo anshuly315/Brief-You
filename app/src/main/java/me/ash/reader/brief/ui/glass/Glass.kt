@@ -74,13 +74,13 @@ fun Modifier.glassSource(): Modifier {
 
 /** The glass effect for any shape, drawn over [backdrop]. */
 @Composable
-fun Modifier.glass(backdrop: LayerBackdrop, shape: Shape): Modifier {
+fun Modifier.glass(backdrop: LayerBackdrop, shape: Shape, rim: Boolean = true): Modifier {
     val isDark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
     val scrim = if (isDark) Color.Black else Color.White
     return this.drawBackdrop(
         backdrop = backdrop,
         shape = { shape },
-        highlight = { Highlight.Default },
+        highlight = { if (rim) Highlight.Default else null },
         effects = {
             vibrancy()
             colorControls(brightness = 0.05f, contrast = 1f, saturation = 1.5f)
@@ -100,11 +100,12 @@ fun GlassOrSurface(
     contentColor: Color,
     tonalElevation: Dp = 0.dp,
     shadowElevation: Dp = 0.dp,
+    rim: Boolean = true, // Brief You: false for a flat full-width bar, where the glass outline looks like a box
     content: @Composable () -> Unit,
 ) {
     val backdrop = GlassHost.backdrop
     if (glassActive() && backdrop != null) {
-        Box(modifier = Modifier.glass(backdrop, shape)) {
+        Box(modifier = Modifier.glass(backdrop, shape, rim)) {
             CompositionLocalProvider(LocalContentColor provides contentColor, content = content)
         }
     } else {
