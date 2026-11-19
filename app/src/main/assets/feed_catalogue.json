@@ -1,0 +1,257 @@
+{
+ "note": "Starter list. Addresses are NOT yet checked: run tools/validate_catalogue.py and remove or fix any that fail.",
+ "feeds": [
+  {
+   "title": "BBC News, World",
+   "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+   "country": "International",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "Al Jazeera, all news",
+   "url": "https://www.aljazeera.com/xml/rss/all.xml",
+   "country": "International",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "The Guardian, World",
+   "url": "https://www.theguardian.com/world/rss",
+   "country": "International",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "NPR News",
+   "url": "https://feeds.npr.org/1001/rss.xml",
+   "country": "United States",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "DW, all English news",
+   "url": "https://rss.dw.com/rdf/rss-en-all",
+   "country": "International",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "France 24, English",
+   "url": "https://www.france24.com/en/rss",
+   "country": "International",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "UN News, all",
+   "url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+   "country": "International",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "The New York Times, Home",
+   "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+   "country": "United States",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "The Hindu, National",
+   "url": "https://www.thehindu.com/news/national/feeder/default.rss",
+   "country": "India",
+   "category": "politics",
+   "language": "en"
+  },
+  {
+   "title": "Times of India, Top stories",
+   "url": "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+   "country": "India",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "The Indian Express",
+   "url": "https://indianexpress.com/feed/",
+   "country": "India",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "NDTV, Top stories",
+   "url": "https://feeds.feedburner.com/ndtvnews-top-stories",
+   "country": "India",
+   "category": "world",
+   "language": "en"
+  },
+  {
+   "title": "Hindustan Times, India news",
+   "url": "https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml",
+   "country": "India",
+   "category": "politics",
+   "language": "en"
+  },
+  {
+   "title": "Scroll.in",
+   "url": "https://feeds.feedburner.com/ScrollinArticles.rss",
+   "country": "India",
+   "category": "politics",
+   "language": "en"
+  },
+  {
+   "title": "The Hindu, Opinion",
+   "url": "https://www.thehindu.com/opinion/feeder/default.rss",
+   "country": "India",
+   "category": "opinion",
+   "language": "en"
+  },
+  {
+   "title": "The Hindu, Sport",
+   "url": "https://www.thehindu.com/sport/feeder/default.rss",
+   "country": "India",
+   "category": "sports",
+   "language": "en"
+  },
+  {
+   "title": "The Hindu, Business",
+   "url": "https://www.thehindu.com/business/feeder/default.rss",
+   "country": "India",
+   "category": "business",
+   "language": "en"
+  },
+  {
+   "title": "Mint, News",
+   "url": "https://www.livemint.com/rss/news",
+   "country": "India",
+   "category": "business",
+   "language": "en"
+  },
+  {
+   "title": "The Economic Times, Top stories",
+   "url": "https://economictimes.indiatimes.com/rssfeedstopstories.cms",
+   "country": "India",
+   "category": "business",
+   "language": "en"
+  },
+  {
+   "title": "Business Standard, Top stories",
+   "url": "https://www.business-standard.com/rss/home_page_top_stories.rss",
+   "country": "India",
+   "category": "business",
+   "language": "en"
+  },
+  {
+   "title": "BBC News, Business",
+   "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+   "country": "United Kingdom",
+   "category": "business",
+   "language": "en"
+  },
+  {
+   "title": "CNBC, Top news",
+   "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html",
+   "country": "United States",
+   "category": "business",
+   "language": "en"
+  },
+  {
+   "title": "BBC News, Science and environment",
+   "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+   "country": "United Kingdom",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "The Guardian, Science",
+   "url": "https://www.theguardian.com/science/rss",
+   "country": "International",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "The New York Times, Science",
+   "url": "https://rss.nytimes.com/services/xml/rss/nyt/Science.xml",
+   "country": "United States",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "Ars Technica",
+   "url": "https://feeds.arstechnica.com/arstechnica/index",
+   "country": "United States",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "The Verge",
+   "url": "https://www.theverge.com/rss/index.xml",
+   "country": "United States",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "WIRED",
+   "url": "https://www.wired.com/feed/rss",
+   "country": "United States",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "Nature, latest",
+   "url": "https://www.nature.com/nature.rss",
+   "country": "International",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "ScienceDaily, all",
+   "url": "https://www.sciencedaily.com/rss/all.xml",
+   "country": "International",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "STAT News",
+   "url": "https://www.statnews.com/feed/",
+   "country": "United States",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "Hacker News",
+   "url": "https://news.ycombinator.com/rss",
+   "country": "International",
+   "category": "scitech",
+   "language": "en"
+  },
+  {
+   "title": "BBC Sport",
+   "url": "https://feeds.bbci.co.uk/sport/rss.xml",
+   "country": "United Kingdom",
+   "category": "sports",
+   "language": "en"
+  },
+  {
+   "title": "ESPN, top news",
+   "url": "https://www.espn.com/espn/rss/news",
+   "country": "United States",
+   "category": "sports",
+   "language": "en"
+  },
+  {
+   "title": "The Guardian, Opinion",
+   "url": "https://www.theguardian.com/uk/commentisfree/rss",
+   "country": "United Kingdom",
+   "category": "opinion",
+   "language": "en"
+  },
+  {
+   "title": "The Guardian, Life and style",
+   "url": "https://www.theguardian.com/lifeandstyle/rss",
+   "country": "United Kingdom",
+   "category": "lifestyle",
+   "language": "en"
+  }
+ ]
+}

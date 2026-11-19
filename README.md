@@ -253,11 +253,39 @@ Brief You is kept apart from Read You so Read You's updates merge easily:
 - **Built with AI.** The code, the design work and this README are written with the help of an AI assistant (Claude, by Anthropic), directed, reviewed and tested by the owner. Expect the occasional mistake, and report what you find.
 - **The AI inside the app is separate.** Summaries, gists and Ask come from Gemma running on your phone; nothing is sent to a server (see *On-device AI*).
 
+## Add Feed (Follow sources and Add Feed in one page)
+
+Add Feed is now one full page (this replaces the small address box; the found feed's settings still open as before):
+
+- One box that searches a ready-made list as you type (name, topic or address) and also takes a pasted link. The clipboard button pastes from Android's clipboard.
+- **Reddit:** type `r/subreddit` or `u/name`, or paste a Reddit link. Reddit's public feed is used, with no account or key. Reddit may limit feeds at times.
+- **YouTube:** type `@handle` or paste a channel, playlist or video link. YouTube's public channel feed is used, with no account or key.
+- Sources from a country and a language, and the Browse Categories grid (All, World / International, Business & Economy, Politics & Society, Lifestyle & Culture, Science & Technology, Sports, Opinion, Local News, Other).
+- Select Group lists your folders and ends with Create new group; Add Feed and Import OPML sit at the bottom.
+- The ready-made list is `app/src/main/assets/feed_catalogue.json`. It is a **starter list whose addresses have not been checked yet**: run `python tools/validate_catalogue.py` (add `--fix` to drop the dead ones) before a release.
+
+## Design style and home
+
+- **Color & Style > Design style:** *Material Expressive* (the app's look so far: rounder shapes, a floating bottom bar) or *Classic Material 3* (smaller corners and a flat full-width bottom bar).
+- **Glass** now also covers the feeds page's bottom bar (Starred / Unread / All), not just the reading bar.
+- **Settings > Interaction > Initial page** picks where the app opens: the *Feeds tree* (groups and feeds) or the *Article list* (your unread articles).
+- The colour style, contrast, design style and glass choices are now loaded before the first screen is drawn (before, the colour style only took effect after the Color & Style page had been opened once).
+
+## Article list look
+
+Settings > Color & Style > Flow page now has: **Article view** (Text only, Magazine = a small picture beside the text as before, or Cards = a big picture above the title in a card), **Density** (Comfortable or Compact), and two sliders: **Picture size** and **Corner roundness** (the list changes as you move them, with a reset). Your choices are kept in their own file (`brief_look`).
+
+## Colour styles and glass
+
+Settings, Color & Style now has nine colour-scheme styles (Tonal spot, Fidelity, Neutral, Vibrant, Expressive, Content, Rainbow, Fruit salad, Monochrome), three contrast levels, and a **Glass effect** switch. With glass on (Android 13 or newer), the reading bar becomes a frosted see-through pill over the article; off, it is the normal accent pill. The glass drawing is ported from [SimpMusic](https://github.com/maxrave-dev/SimpMusic) (GPL-3.0) and uses Kyant's `backdrop` library.
+
 ## Building
 
 Open the project in [Android Studio](https://developer.android.com/studio) and run it, or build from the command line with `./gradlew assembleGithubRelease` (Brief You Nightly: `./gradlew assembleGithubNightly`).
 
 ## Credits and license
+
+The glass effect comes from [SimpMusic](https://github.com/maxrave-dev/SimpMusic) by maxrave-dev (GPL-3.0).
 
 Brief You is built on [**Read You**](https://github.com/ReadYouApp/ReadYou) by [Ashinch](https://github.com/Ashinch) and its contributors. All credit for the original app goes to them, and Brief You picks up its updates. If you like the app, consider [supporting Read You](https://ash7.io/sponsor).
 

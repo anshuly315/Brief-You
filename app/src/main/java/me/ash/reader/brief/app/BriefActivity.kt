@@ -60,6 +60,10 @@ object BriefActivity {
     @OptIn(kotlinx.coroutines.FlowPreview::class, kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun onCreate(activity: ComponentActivity, savedInstanceState: Bundle?): Boolean {
         val playSplash = savedInstanceState == null
+        // The colour style, design style, glass and list look are read before the first frame, so
+        // the theme never starts in the defaults and then jumps.
+        me.ash.reader.brief.ui.style.BriefStyle.init(activity)
+        me.ash.reader.brief.ui.style.BriefLook.init(activity)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && playSplash) {
             activity.splashScreen.setOnExitAnimationListener { view -> view.remove() }
         }

@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height // Brief You: the card picture
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -148,6 +149,13 @@ fun ArticleItem(
     val articleListDesc = LocalFlowArticleListDesc.current
     val articleListDate = LocalFlowArticleListTime.current
     val articleListReadIndicator = LocalFlowArticleListReadIndicator.current
+    // Brief You: view mode, density, picture size and corners (Flow page settings).
+    me.ash.reader.brief.ui.style.BriefLook.init(androidx.compose.ui.platform.LocalContext.current) // Brief You
+    val lookCards = me.ash.reader.brief.ui.style.BriefLook.mode == me.ash.reader.brief.ui.style.ListMode.Cards // Brief You
+    val lookMagazine = me.ash.reader.brief.ui.style.BriefLook.mode == me.ash.reader.brief.ui.style.ListMode.Magazine // Brief You
+    val lookCorner = me.ash.reader.brief.ui.style.BriefLook.corner.dp // Brief You
+    val lookImage = me.ash.reader.brief.ui.style.BriefLook.imageSize.dp // Brief You
+    val lookCompact = me.ash.reader.brief.ui.style.BriefLook.density == me.ash.reader.brief.ui.style.ListDensity.Compact // Brief You
     // Brief You: reading time next to the time ("4 min · 2h").
     val readingLabel = readingMinutes?.let { stringResource(R.string.reading_time_min, it) }
     val timeLabel = listOfNotNull(readingLabel, timeString?.takeIf { it.isNotBlank() })
@@ -168,9 +176,10 @@ fun ArticleItem(
         modifier =
             modifier
                 .padding(horizontal = 12.dp)
-                .clip(Shape20)
+                .clip(if (lookCards) androidx.compose.foundation.shape.RoundedCornerShape(lookCorner) else Shape20) // Brief You: cards use the corner setting
+                .then(if (lookCards) Modifier.background(MaterialTheme.colorScheme.surfaceContainerLow) else Modifier) // Brief You
                 .combinedClickable(onClick = onClick, onLongClick = onLongClick)
-                .padding(horizontal = 12.dp, vertical = 12.dp)
+                .padding(horizontal = 12.dp, vertical = if (lookCompact) 6.dp else 12.dp) // Brief You: density
                 .alpha(
                     when (articleListReadIndicator) {
                         FlowArticleReadIndicatorPreference.None -> 1f
@@ -260,6 +269,18 @@ fun ArticleItem(
 
         }
 
+        // Brief You: a card's picture, above the title (its height follows the picture size setting)
+        if (lookCards && imgData != null && articleListImage.value) {
+            RYAsyncImage(
+                modifier = Modifier.padding(top = 8.dp).fillMaxWidth().height(lookImage * 2).clip(androidx.compose.foundation.shape.RoundedCornerShape(lookCorner)),
+                data = imgData,
+                scale = Scale.FILL,
+                precision = Precision.INEXACT,
+                size = with(androidx.compose.ui.platform.LocalDensity.current) { coil.size.Size(720.dp.roundToPx(), (lookImage * 2).roundToPx()) },
+                contentScale = ContentScale.Crop,
+            )
+        }
+
         // Bottom
         Row(modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
             // (Brief You: the feed icon moved up, next to the feed name.)
@@ -314,15 +335,15 @@ fun ArticleItem(
             }
 
             // Image
-            if (imgData != null && articleListImage.value) {
+            if (imgData != null && articleListImage.value && lookMagazine) { // Brief You: only in the Magazine view
                 RYAsyncImage(
-                    modifier = Modifier.padding(start = 10.dp).size(80.dp).clip(androidx.compose.foundation.shape.RoundedCornerShape(me.ash.reader.brief.ui.Corner.Small)), // Brief You: 80 dp, 16 dp corners
+                    modifier = Modifier.padding(start = 10.dp).size(lookImage).clip(androidx.compose.foundation.shape.RoundedCornerShape(lookCorner)), // Brief You: size and corners from the settings (80 dp, 16 dp by default)
                     data = imgData,
                     scale = Scale.FILL,
                     precision = Precision.INEXACT,
                     // Brief You: decoded at the size shown (80 dp), not 1000 px, so scrolling keeps
                     // more thumbnails in memory and decodes less
-                    size = with(androidx.compose.ui.platform.LocalDensity.current) { 80.dp.roundToPx() }.let { coil.size.Size(it, it) },
+                    size = with(androidx.compose.ui.platform.LocalDensity.current) { lookImage.roundToPx() }.let { coil.size.Size(it, it) },
                     contentScale = ContentScale.Crop,
                 )
             }

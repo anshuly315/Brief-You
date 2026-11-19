@@ -84,7 +84,20 @@ fun materialYouColorScheme(
     val context = LocalContext.current
     return when (source) {
         ThemeColorSource.System ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Brief You: with a non-default scheme style or contrast, build the scheme from the
+            // wallpaper's main colour ourselves, so those choices change something here too.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 &&
+                (me.ash.reader.brief.ui.style.BriefStyle.scheme != me.ash.reader.brief.ui.style.SchemeStyle.TonalSpot ||
+                    me.ash.reader.brief.ui.style.BriefStyle.contrast != me.ash.reader.brief.ui.style.ContrastLevel.Standard) &&
+                WallpaperManager.getInstance(context).getWallpaperColors(WallpaperManager.FLAG_SYSTEM)
+                    ?.primaryColor != null
+            ) {
+                val primary =
+                    WallpaperManager.getInstance(context)
+                        .getWallpaperColors(WallpaperManager.FLAG_SYSTEM)!!
+                        .primaryColor!!
+                seededScheme(Color(primary.toArgb()), isDark, isAmoled)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 if (isDark) {
                     androidx.compose.material3.dynamicDarkColorScheme(context).let {
                         if (isAmoled) it.amoled() else it
@@ -104,7 +117,8 @@ private fun seededScheme(seed: Color, isDark: Boolean, isAmoled: Boolean): Color
         seedColor = seed,
         isDark = isDark,
         isAmoled = isAmoled,
-        style = PaletteStyle.TonalSpot,
+        style = me.ash.reader.brief.ui.style.BriefStyle.scheme.style, // Brief You: the chosen colour-scheme style
+        contrastLevel = me.ash.reader.brief.ui.style.BriefStyle.contrast.value, // Brief You: the chosen contrast
         specVersion = ColorSpec.SpecVersion.SPEC_2025,
     )
 

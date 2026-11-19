@@ -140,11 +140,8 @@ fun ColorAndStylePage(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        DynamicSVGImage(
-                            modifier = Modifier.padding(60.dp),
-                            svgImageString = SVGString.PALETTE,
-                            contentDescription = stringResource(R.string.color_and_style),
-                        )
+                        // Brief You: a live picture of the app in your chosen colours, instead of the fixed palette picture
+                        me.ash.reader.brief.ui.style.StylePreview(modifier = Modifier.padding(20.dp))
                     }
                     Spacer(modifier = Modifier.height(24.dp))
                 }
@@ -231,6 +228,10 @@ fun ColorAndStylePage(
                         onClick = navigateToReadingPageStyle,
                     ) {}
                     } // Brief You
+                }
+                item { // Brief You: colour-scheme style, contrast and the glass switch
+                    Spacer(modifier = Modifier.height(24.dp))
+                    me.ash.reader.brief.ui.style.StyleOptionsSections()
                 }
                 item {
                     Spacer(modifier = Modifier.height(24.dp))

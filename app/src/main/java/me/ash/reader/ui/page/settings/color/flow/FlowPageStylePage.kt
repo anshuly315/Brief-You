@@ -253,6 +253,10 @@ fun FlowPageStylePage(
                     ) {}
                     } // Brief You
                 }
+                item { // Brief You: view mode, density, picture size and corners
+                    Spacer(modifier = Modifier.height(24.dp))
+                    me.ash.reader.brief.ui.style.ListLookSections()
+                }
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))

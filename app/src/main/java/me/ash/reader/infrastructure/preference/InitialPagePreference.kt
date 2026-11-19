@@ -28,8 +28,8 @@ sealed class InitialPagePreference(val value: Int) : Preference() {
 
     fun toDesc(context: Context): String =
         when (this) {
-            FeedsPage -> context.getString(R.string.feeds_page)
-            FlowPage -> context.getString(R.string.flow_page)
+            FeedsPage -> context.getString(R.string.home_feeds_tree) // Brief You: plain names
+            FlowPage -> context.getString(R.string.home_article_list) // Brief You
         }
 
     companion object {

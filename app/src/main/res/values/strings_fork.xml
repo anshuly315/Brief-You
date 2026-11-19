@@ -555,4 +555,86 @@
     <string name="translate_show_original">Show original</string>
     <string name="translate_show_translation">Show translation</string>
     <string name="translate_needs_model">Set up the AI model first (Settings → AI model).</string>
+    <!-- Brief You: Color & Style extras -->
+    <string name="color_scheme_style">Colour scheme style</string>
+    <string name="scheme_tonal_spot">Tonal spot</string>
+    <string name="scheme_tonal_spot_desc">Calm, balanced colours (default)</string>
+    <string name="scheme_fidelity">Fidelity</string>
+    <string name="scheme_fidelity_desc">Stays close to the chosen colour</string>
+    <string name="scheme_neutral">Neutral</string>
+    <string name="scheme_neutral_desc">Almost grey, a hint of colour</string>
+    <string name="scheme_vibrant">Vibrant</string>
+    <string name="scheme_vibrant_desc">Bright, saturated colours</string>
+    <string name="scheme_expressive">Expressive</string>
+    <string name="scheme_expressive_desc">Playful, shifted hues</string>
+    <string name="scheme_content">Content</string>
+    <string name="scheme_content_desc">Matches the colour you picked</string>
+    <string name="scheme_rainbow">Rainbow</string>
+    <string name="scheme_rainbow_desc">Neutral base with colourful accents</string>
+    <string name="scheme_fruit_salad">Fruit salad</string>
+    <string name="scheme_fruit_salad_desc">A cheerful mix of hues</string>
+    <string name="scheme_monochrome">Monochrome</string>
+    <string name="scheme_monochrome_desc">Shades of one colour only</string>
+    <string name="contrast_level">Contrast</string>
+    <string name="contrast_standard">Standard</string>
+    <string name="contrast_medium">Medium</string>
+    <string name="contrast_high">High</string>
+    <string name="glass_effect">Glass</string>
+    <string name="glass_effect_title">Glass effect</string>
+    <string name="glass_effect_desc">Frosted, see-through bars over the article (reading bar for now)</string>
+    <string name="glass_effect_unsupported">Needs Android 13 or newer</string>
+
+    <!-- Add Feed page (Brief You) -->
+    <string name="add_page_title">Add Feed</string>
+    <string name="add_page_search_hint">Name, topic or paste a URL</string>
+    <string name="add_page_paste">Paste from the clipboard</string>
+    <string name="add_page_sources_from">Sources from</string>
+    <string name="add_page_language">Language</string>
+    <string name="add_page_all_countries">All countries</string>
+    <string name="add_page_all_languages">All languages</string>
+    <string name="add_page_browse">Browse Categories</string>
+    <string name="add_page_group">Select Group</string>
+    <string name="add_page_add">Add Feed</string>
+    <string name="add_page_no_results">Nothing in the list for this. Paste a link to add any site.</string>
+    <string name="add_page_empty_category">No sources in this category yet. Paste a link to add one.</string>
+    <string name="add_page_back_to_categories">All categories</string>
+    <string name="add_page_hint_reddit">Reddit feed</string>
+    <string name="add_page_hint_youtube">YouTube channel</string>
+    <string name="add_page_hint_playlist">YouTube playlist</string>
+    <string name="add_page_hint_site">Add this address</string>
+    <string name="cat_all">All</string>
+    <string name="cat_world">World / International</string>
+    <string name="cat_business">Business &amp; Economy</string>
+    <string name="cat_politics">Politics &amp; Society</string>
+    <string name="cat_lifestyle">Lifestyle &amp; Culture</string>
+    <string name="cat_scitech">Science &amp; Technology</string>
+    <string name="cat_sports">Sports</string>
+    <string name="cat_opinion">Opinion</string>
+    <string name="cat_local">Local News</string>
+    <string name="cat_other">Other</string>
+
+    <!-- List look (Brief You) -->
+    <string name="list_look_view">Article view</string>
+    <string name="list_look_density">Density</string>
+    <string name="list_look_pictures">Pictures and corners</string>
+    <string name="list_look_image_size">Picture size</string>
+    <string name="list_look_corners">Corner roundness</string>
+    <string name="list_look_reset">Reset to default</string>
+    <string name="list_mode_text">Text only</string>
+    <string name="list_mode_text_desc">Titles and short text, no pictures</string>
+    <string name="list_mode_magazine">Magazine</string>
+    <string name="list_mode_magazine_desc">A small picture beside the text</string>
+    <string name="list_mode_cards">Cards</string>
+    <string name="list_mode_cards_desc">A big picture above the title, in a card</string>
+    <string name="density_comfortable">Comfortable</string>
+    <string name="density_compact">Compact</string>
+
+    <!-- Design style and home (Brief You) -->
+    <string name="design_style">Design style</string>
+    <string name="design_classic">Classic Material 3</string>
+    <string name="design_classic_desc">Flat bars, smaller corners, a regular bottom bar</string>
+    <string name="design_expressive">Material Expressive</string>
+    <string name="design_expressive_desc">Rounder shapes, a floating bottom bar, bolder pills</string>
+    <string name="home_feeds_tree">Feeds tree (groups and feeds)</string>
+    <string name="home_article_list">Article list (opens on your unread articles)</string>
 </resources>

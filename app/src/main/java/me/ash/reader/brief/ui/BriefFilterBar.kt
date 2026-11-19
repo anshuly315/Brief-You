@@ -71,6 +71,9 @@ fun BriefFilterBar(
     } onDark MaterialTheme.colorScheme.secondaryContainer
 
     val containerHeight = filterBarContainerHeight(filterBarStyle)
+    // Brief You: Classic Material 3 is a flat full-width bar; Expressive is the floating rounded bar.
+    me.ash.reader.brief.ui.style.BriefStyle.init(LocalView.current.context)
+    val classic = me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic
 
     // A fade to black behind the bar: clear at the top, fully black from the bottom of the bar down
     // to the screen edge, so nothing shows below the bar. On a light theme it fades into the page
@@ -85,6 +88,7 @@ fun BriefFilterBar(
         modifier =
             modifier
                 .drawBehind {
+                    if (classic) return@drawBehind
                     // Where the bar ends: everything from there down is solid.
                     val barBottom = (FILTER_BAR_TOP_PADDING + containerHeight).toPx()
                     val solidFrom = (barBottom / size.height).coerceIn(0.3f, 1f)
@@ -97,13 +101,15 @@ fun BriefFilterBar(
                     )
                 }
                 .windowInsetsPadding(NavigationBarDefaults.windowInsets)
-                .padding(start = 20.dp, end = 20.dp, top = FILTER_BAR_TOP_PADDING)
+                .padding(start = if (classic) 0.dp else 20.dp, end = if (classic) 0.dp else 20.dp, top = if (classic) 0.dp else FILTER_BAR_TOP_PADDING)
     ) {
-    Surface(
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(filterBarTonalElevation),
-        shape = RoundedCornerShape(32.dp),
-        shadowElevation = 6.dp,
-        modifier = Modifier.fillMaxWidth()
+    val barColor = if (classic) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.surfaceColorAtElevation(filterBarTonalElevation)
+    // Brief You: glass when the switch is on (needs a glass source on the page behind it).
+    me.ash.reader.brief.ui.glass.GlassOrSurface(
+        color = barColor,
+        contentColor = MaterialTheme.colorScheme.contentColorFor(barColor),
+        shape = if (classic) androidx.compose.ui.graphics.RectangleShape else RoundedCornerShape(32.dp),
+        shadowElevation = if (classic) 0.dp else 6.dp,
     ) {
         Row(
             modifier =

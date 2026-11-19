@@ -89,6 +89,23 @@ fun AddFeedDialog(viewModel: SubscribeViewModel) {
         viewModel.hideDrawer()
     }
 
+    // The address step is the full Add Feed page (country, search, categories, group); the found
+    // feed's settings below stay the floating dialog.
+    if (state is SubscribeState.Input) {
+        me.ash.reader.brief.feeds.add.AddFeedPage(viewModel, state, { launcher.launch(it) }) { close() }
+        return
+    }
+    // The group picked on the page is the one preselected in the found feed's settings.
+    val foundLink = (state as? SubscribeState.Configure)?.feedLink
+    androidx.compose.runtime.LaunchedEffect(foundLink) {
+        if (foundLink != null) {
+            me.ash.reader.brief.feeds.add.AddFeedPrefs.pendingGroupId?.let {
+                viewModel.selectedGroup(it)
+                me.ash.reader.brief.feeds.add.AddFeedPrefs.pendingGroupId = null
+            }
+        }
+    }
+
     // In a window of its own (no dialog host), like the dialogs over the option sheets. Drawn in
     // the app's window, every frame of the keyboard sliding re-laid out the whole feeds page
     // under it, which made the dialog lag.

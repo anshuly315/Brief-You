@@ -268,7 +268,7 @@ fun ReadingPage(
                                         }
                                 ) {
                                     Box(
-                                        modifier = Modifier.fillMaxSize(),
+                                        modifier = Modifier.fillMaxSize().then(me.ash.reader.brief.ui.glass.rememberGlassSource()), // Brief You: what the glass bar refracts
                                         contentAlignment = Alignment.Center,
                                     ) {
                                         Content(

@@ -106,8 +106,9 @@ fun BottomBar(
                     animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
                 ) + fadeOut(animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()),
         ) {
-            val content = MaterialTheme.colorScheme.onPrimaryContainer
-            Surface(
+            // Brief You: glass pill when the glass switch is on, the normal accent pill otherwise.
+            val content = me.ash.reader.brief.ui.glass.barContentColor()
+            me.ash.reader.brief.ui.glass.GlassOrSurface(
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = content,
