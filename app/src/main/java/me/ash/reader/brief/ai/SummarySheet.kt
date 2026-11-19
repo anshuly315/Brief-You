@@ -269,12 +269,12 @@ fun SummarySheet(
                         Spacer(Modifier.height(16.dp))
                         val progress = state.progress
                         if (progress != null) {
-                            LinearWavyProgressIndicator(
+                            me.ash.reader.brief.ui.BriefLinearProgress(
                                 progress = { progress },
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         } else {
-                            LinearWavyProgressIndicator(modifier = Modifier.fillMaxWidth())
+                            me.ash.reader.brief.ui.BriefLinearProgress(modifier = Modifier.fillMaxWidth())
                         }
                     }
 

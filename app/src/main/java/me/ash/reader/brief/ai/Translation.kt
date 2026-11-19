@@ -503,7 +503,7 @@ fun TranslationBanner(controller: TranslateController) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             if (t.status == TranslationState.Status.Running) {
-                LinearWavyProgressIndicator(
+                me.ash.reader.brief.ui.BriefLinearProgress(
                     progress = { t.progress.coerceAtLeast(0.04f) },
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                 )

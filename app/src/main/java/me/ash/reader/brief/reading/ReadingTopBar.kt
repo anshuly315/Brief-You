@@ -216,7 +216,7 @@ fun BriefTopBar(
             // Reading progress: exact, from how far the article is scrolled.
             val started by remember { derivedStateOf { progress() > 0.01f } }
             if (started) {
-                LinearWavyProgressIndicator(
+                me.ash.reader.brief.ui.BriefLinearProgress(
                     progress = progress,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).height(6.dp),
                 )

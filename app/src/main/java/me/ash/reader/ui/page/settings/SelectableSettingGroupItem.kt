@@ -94,6 +94,12 @@ fun SelectableSettingGroupItem(
                             else -> tertiaryContainer to onTertiaryContainer
                         }
                     }
+                // Brief You: Classic Material 3 shows a plain icon, no shape behind it (like Smart RSS).
+                if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) {
+                    Box(modifier = Modifier.padding(start = 4.dp, end = 16.dp).size(40.dp), contentAlignment = Alignment.Center) {
+                        Icon(imageVector = it, contentDescription = title, modifier = Modifier.size(24.dp), tint = MaterialTheme.colorScheme.onSurface)
+                    }
+                } else
                 Box(
                     modifier =
                         Modifier.padding(start = 4.dp, end = 16.dp)
