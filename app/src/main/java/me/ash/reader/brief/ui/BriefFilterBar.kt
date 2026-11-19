@@ -87,8 +87,7 @@ fun BriefFilterBar(
     Box(
         modifier =
             modifier
-                .drawBehind {
-                    if (classic) return@drawBehind
+                .then(if (classic) Modifier else Modifier.drawBehind {
                     // Where the bar ends: everything from there down is solid.
                     val barBottom = (FILTER_BAR_TOP_PADDING + containerHeight).toPx()
                     val solidFrom = (barBottom / size.height).coerceIn(0.3f, 1f)
@@ -99,7 +98,7 @@ fun BriefFilterBar(
                             1f to scrim,
                         )
                     )
-                }
+                })
                 .windowInsetsPadding(NavigationBarDefaults.windowInsets)
                 .padding(start = if (classic) 0.dp else 20.dp, end = if (classic) 0.dp else 20.dp, top = if (classic) 0.dp else FILTER_BAR_TOP_PADDING)
     ) {
@@ -108,7 +107,7 @@ fun BriefFilterBar(
     me.ash.reader.brief.ui.glass.GlassOrSurface(
         color = barColor,
         contentColor = MaterialTheme.colorScheme.contentColorFor(barColor),
-        shape = if (classic) androidx.compose.ui.graphics.RectangleShape else RoundedCornerShape(32.dp),
+        shape = RoundedCornerShape(if (classic) 0.dp else 32.dp), // Brief You: same shape type for both designs
         shadowElevation = if (classic) 0.dp else 6.dp,
     ) {
         Row(
