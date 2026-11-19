@@ -124,8 +124,9 @@ fun SharedFilterBar(
     AnimatedVisibility(
         visible = visible,
         modifier = modifier,
-        enter = slideInVertically(spatial) { it } + fadeIn(effects),
-        exit = slideOutVertically(spatial) { it } + fadeOut(effects),
+        // Brief You: no fading while glass is on (glass flickers when its layer fades).
+        enter = slideInVertically(spatial) { it } + (if (me.ash.reader.brief.ui.glass.glassActive()) androidx.compose.animation.EnterTransition.None else fadeIn(effects)),
+        exit = slideOutVertically(spatial) { it } + (if (me.ash.reader.brief.ui.glass.glassActive()) androidx.compose.animation.ExitTransition.None else fadeOut(effects)),
     ) {
         val s = shown ?: return@AnimatedVisibility
         Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {

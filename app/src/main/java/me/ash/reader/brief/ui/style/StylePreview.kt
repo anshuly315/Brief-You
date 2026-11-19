@@ -22,10 +22,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import me.ash.reader.brief.ui.glass.glass
-import com.kyant.backdrop.backdrops.layerBackdrop
 
 /*
  * Brief You: a small picture of the app in the colours you have chosen. It is drawn from the live
@@ -35,11 +34,7 @@ import com.kyant.backdrop.backdrops.layerBackdrop
 fun StylePreview(modifier: Modifier = Modifier) {
     val c = MaterialTheme.colorScheme
     val glassOn = me.ash.reader.brief.ui.glass.glassActive()
-    val surface = c.surfaceContainerLow
-    val backdrop = com.kyant.backdrop.backdrops.rememberLayerBackdrop {
-        drawRect(surface)
-        drawContent()
-    }
+    val dark = c.surface.luminance() < 0.5f
     val classic = BriefStyle.design == DesignStyle.Classic
     val barHeight = (BriefLook.barHeightDp(true) * 0.4f).dp
     val side = (BriefLook.barSideDp() * 0.4f).dp
@@ -50,7 +45,6 @@ fun StylePreview(modifier: Modifier = Modifier) {
         Column(
             modifier =
                 Modifier.fillMaxSize()
-                    .layerBackdrop(backdrop)
                     .then(
                         if (glassOn) Modifier.drawBehind {
                             val stripe = 26.dp.toPx()
@@ -109,7 +103,15 @@ fun StylePreview(modifier: Modifier = Modifier) {
                 }
             }
             if (glassOn) {
-                Box(Modifier.fillMaxSize().then(Modifier.glass(backdrop, barShape))) { barContent() }
+                // An approximation of the glass (the real glass needs a real page behind it): the frost
+                // and the theme tint are drawn over the stripes. Blur and refraction show on the real screens.
+                val g = me.ash.reader.brief.ui.glass.BriefGlass
+                val veil = (if (dark) Color.Black else Color.White).copy(alpha = (g.frostPct() / 100f * 1.6f).coerceIn(0f, 0.9f))
+                Box(
+                    Modifier.fillMaxSize().clip(barShape)
+                        .background(veil)
+                        .background(c.primaryContainer.copy(alpha = (g.tintPct() / 100f).coerceIn(0f, 0.9f)))
+                ) { barContent() }
             } else {
                 Box(Modifier.fillMaxSize().clip(barShape).background(c.secondaryContainer)) { barContent() }
             }

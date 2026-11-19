@@ -88,6 +88,8 @@ fun BottomBar(
     onSummarize: () -> Unit = {},
 ) {
     val haptic = LocalHapticFeedback.current
+    // Brief You: glass flickers if its bar fades in and out, so with glass on the bar only scales.
+    val glass = me.ash.reader.brief.ui.glass.glassActive()
     Box(
         modifier = Modifier.fillMaxSize().zIndex(1f),
         contentAlignment = Alignment.BottomCenter,
@@ -99,12 +101,12 @@ fun BottomBar(
                 scaleIn(
                     transformOrigin = PillOrigin,
                     animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
-                ) + fadeIn(animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()),
+                ) + (if (glass) androidx.compose.animation.EnterTransition.None else fadeIn(animationSpec = MaterialTheme.motionScheme.fastEffectsSpec())),
             exit =
                 scaleOut(
                     transformOrigin = PillOrigin,
                     animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
-                ) + fadeOut(animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()),
+                ) + (if (glass) androidx.compose.animation.ExitTransition.None else fadeOut(animationSpec = MaterialTheme.motionScheme.fastEffectsSpec())),
         ) {
             // Brief You: glass pill when the glass switch is on, the normal accent pill otherwise.
             val content = me.ash.reader.brief.ui.glass.barContentColor()
