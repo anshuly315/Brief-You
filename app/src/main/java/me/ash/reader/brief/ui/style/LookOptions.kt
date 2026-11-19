@@ -212,6 +212,11 @@ fun GlassCustomSections() {
             onClick = { g.setRefraction(context, !g.refractionOn()) },
         ) { me.ash.reader.ui.component.base.RYSwitch(activated = g.refractionOn()) { g.setRefraction(context, !g.refractionOn()) } }
         SettingItem(
+            title = stringResource(R.string.glass_reading),
+            desc = stringResource(R.string.glass_reading_desc),
+            onClick = { g.setReadingGlass(context, !g.readingGlass) },
+        ) { me.ash.reader.ui.component.base.RYSwitch(activated = g.readingGlass) { g.setReadingGlass(context, !g.readingGlass) } }
+        SettingItem(
             title = stringResource(R.string.glass_outline),
             desc = stringResource(R.string.glass_outline_desc),
             onClick = { g.setOutline(context, !g.outlineOn()) },

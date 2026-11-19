@@ -89,5 +89,5 @@ fun StyleOptionsSections() {
         }
     }
 
-    GlassCustomSections()
+    if (BriefStyle.glass && glassSupported) GlassCustomSections()
 }

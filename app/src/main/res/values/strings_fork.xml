@@ -650,4 +650,6 @@
     <string name="glass_refraction_desc">Bends what is behind the glass at its edges</string>
     <string name="glass_outline">Outline</string>
     <string name="glass_outline_desc">A thin light edge around the glass</string>
+    <string name="glass_reading">Glass on the article page</string>
+    <string name="glass_reading_desc">May flicker while scrolling an article. Off by default.</string>
 </resources>

@@ -55,7 +55,11 @@ fun glassActive(): Boolean {
 
 /** Marks this part of the page as what glass surfaces next to it refract. */
 @Composable
-fun rememberGlassSource(): Modifier = Modifier.glassSource()
+fun rememberGlassSource(reading: Boolean = false): Modifier {
+    BriefGlass.init(LocalContext.current)
+    // The article page only gets glass if its switch is on (it can flicker there).
+    return if (reading && !BriefGlass.readingGlass) Modifier else Modifier.glassSource()
+}
 
 @Composable
 fun Modifier.glassSource(): Modifier {

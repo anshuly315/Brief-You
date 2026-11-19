@@ -25,6 +25,10 @@ object BriefGlass {
     var refraction by mutableIntStateOf(-1); private set     // -1 auto, 0 off, 1 on
     var outline by mutableIntStateOf(-1); private set        // -1 auto, 0 off, 1 on
 
+    /** Glass on the article page too. Off by default: it flickers there while scrolling. */
+    var readingGlass by androidx.compose.runtime.mutableStateOf(false); private set
+    fun setReadingGlass(c: Context, v: Boolean) { init(c); readingGlass = v; prefs(c).edit { putBoolean("readingGlass", v) } }
+
     private val classic get() = BriefStyle.design == DesignStyle.Classic
     fun blurDp() = if (blur >= 0f) blur else 8f
     fun frostPct() = if (frost >= 0f) frost else if (classic) 12f else 27f
@@ -38,6 +42,7 @@ object BriefGlass {
         val p = prefs(context)
         blur = p.getFloat("blur", -1f); frost = p.getFloat("frost", -1f); tint = p.getFloat("tint", -1f)
         saturation = p.getFloat("saturation", -1f); refraction = p.getInt("refraction", -1); outline = p.getInt("outline", -1)
+        readingGlass = p.getBoolean("readingGlass", false)
         ready = true
     }
 
@@ -51,7 +56,7 @@ object BriefGlass {
     fun setOutline(c: Context, v: Boolean) { init(c); outline = if (v) 1 else 0; prefs(c).edit { putInt("outline", outline) } }
 
     fun reset(c: Context) {
-        init(c); blur = -1f; frost = -1f; tint = -1f; saturation = -1f; refraction = -1; outline = -1
+        init(c); blur = -1f; frost = -1f; tint = -1f; saturation = -1f; refraction = -1; outline = -1; readingGlass = false
         prefs(c).edit { clear() }
     }
 }

@@ -35,7 +35,7 @@ fun GroupIconTile(groupId: String, modifier: Modifier = Modifier, size: Dp = 36.
             modifier
                 .size(size)
                 .clip(RoundedCornerShape(size / 3))
-                .background(MaterialTheme.colorScheme.secondaryContainer),
+                .background(if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.secondaryContainer), // Brief You: plain in Classic
         contentAlignment = Alignment.Center,
     ) {
         val symbol = SymbolIcons.of(icon)

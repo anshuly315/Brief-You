@@ -57,7 +57,7 @@ fun GroupItem(
                     onLongClick()
                 }
             )
-            .background(MaterialTheme.colorScheme.surfaceContainerHigh) // Brief You: the group's row in the joined list
+            .background(if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surfaceContainerHigh) // Brief You: the group's row in the joined list (plain in Classic)
             .padding(vertical = 12.dp) // Brief You: was 22 above and below
     ) {
         Row(

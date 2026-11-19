@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalView
@@ -133,14 +134,25 @@ fun BriefFilterBar(
                         else -> false
                     },
                     icon = {
-                        Icon(
-                            imageVector = if (filter == item && filterBarFilled) {
-                                item.iconFilled
-                            } else {
-                                item.iconOutline
-                            },
-                            contentDescription = item.toName()
-                        )
+                        val glyph: @Composable () -> Unit = {
+                            Icon(
+                                imageVector = if (filter == item && filterBarFilled) {
+                                    item.iconFilled
+                                } else {
+                                    item.iconOutline
+                                },
+                                contentDescription = item.toName()
+                            )
+                        }
+                        if (classic) {
+                            // Brief You: Classic Material 3 draws its own indicator, a small rounded square instead of a pill.
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(if (filter == item) indicatorColor else Color.Transparent)
+                                    .padding(horizontal = 20.dp, vertical = 4.dp)
+                            ) { glyph() }
+                        } else glyph()
                     },
                     label = if (filterBarStyle == FlowFilterBarStylePreference.Icon.value) {
                         null
@@ -161,7 +173,7 @@ fun BriefFilterBar(
                         filterOnClick(item)
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        indicatorColor = indicatorColor,
+                        indicatorColor = if (classic) Color.Transparent else indicatorColor,
                         unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         selectedIconColor = MaterialTheme.colorScheme.contentColorFor(indicatorColor),
                         unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
