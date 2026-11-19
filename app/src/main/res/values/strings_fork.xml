@@ -641,4 +641,13 @@
     <string name="bottom_bar_thickness">Thickness</string>
     <string name="bottom_bar_sides">Distance from the sides</string>
     <string name="bottom_bar_bottom">Distance from the bottom</string>
+    <string name="glass_customise">Customise the glass</string>
+    <string name="glass_blur">Blur</string>
+    <string name="glass_frost">Frost (white or black veil)</string>
+    <string name="glass_tint">Theme colour tint</string>
+    <string name="glass_saturation">Colour saturation</string>
+    <string name="glass_refraction">Refraction</string>
+    <string name="glass_refraction_desc">Bends what is behind the glass at its edges</string>
+    <string name="glass_outline">Outline</string>
+    <string name="glass_outline_desc">A thin light edge around the glass</string>
 </resources>

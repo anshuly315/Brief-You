@@ -72,27 +72,33 @@ fun Modifier.glassSource(): Modifier {
     return this.layerBackdrop(backdrop)
 }
 
-/** The glass effect for any shape, drawn over [backdrop]. */
+/** The glass effect for any shape, drawn over [backdrop], from the glass settings ([BriefGlass]). */
 @Composable
-fun Modifier.glass(backdrop: LayerBackdrop, shape: Shape, rim: Boolean = true, tinted: Boolean = false): Modifier {
-    val tint = MaterialTheme.colorScheme.primaryContainer
+fun Modifier.glass(backdrop: LayerBackdrop, shape: Shape): Modifier {
+    BriefGlass.init(LocalContext.current)
     val isDark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
     val scrim = if (isDark) Color.Black else Color.White
+    val tint = MaterialTheme.colorScheme.primaryContainer
+    val blurDp = BriefGlass.blurDp()
+    val frost = BriefGlass.frostPct() / 100f
+    val tintAmount = BriefGlass.tintPct() / 100f
+    val saturation = BriefGlass.saturationPct() / 100f
+    val lens = BriefGlass.refractionOn()
+    val outline = BriefGlass.outlineOn()
     return this.drawBackdrop(
         backdrop = backdrop,
         shape = { shape },
-        highlight = { if (rim) Highlight.Default else null },
+        highlight = { if (outline) Highlight.Default else null },
         effects = {
             vibrancy()
-            colorControls(brightness = 0.05f, contrast = 1f, saturation = 1.5f)
-            blur(8f.dp.toPx())
-            lens(size.minDimension / 4f, size.minDimension / 2f, false)
+            colorControls(brightness = 0.05f, contrast = 1f, saturation = saturation)
+            if (blurDp > 0f) blur(blurDp.dp.toPx())
+            if (lens) lens(size.minDimension / 4f, size.minDimension / 2f, false)
         },
         onDrawBackdrop = { drawBackdrop -> drawBackdrop() },
         onDrawSurface = {
-            drawRect(scrim.copy(alpha = if (tinted) 0.12f else 0.27f))
-            // Brief You: Classic glass leans toward the theme colour, so it doesn't read as white.
-            if (tinted) drawRect(tint.copy(alpha = 0.38f))
+            drawRect(scrim.copy(alpha = frost.coerceIn(0f, 1f)))
+            if (tintAmount > 0f) drawRect(tint.copy(alpha = tintAmount.coerceIn(0f, 1f)))
         },
     )
 }
@@ -105,13 +111,11 @@ fun GlassOrSurface(
     contentColor: Color,
     tonalElevation: Dp = 0.dp,
     shadowElevation: Dp = 0.dp,
-    tinted: Boolean = false,
-    rim: Boolean = true, // Brief You: false for a flat full-width bar, where the glass outline looks like a box
     content: @Composable () -> Unit,
 ) {
     val backdrop = GlassHost.backdrop
     if (glassActive() && backdrop != null) {
-        Box(modifier = Modifier.glass(backdrop, shape, rim, tinted)) {
+        Box(modifier = Modifier.glass(backdrop, shape)) {
             CompositionLocalProvider(LocalContentColor provides contentColor, content = content)
         }
     } else {

@@ -115,6 +115,7 @@ private fun LookSlider(
     range: ClosedFloatingPointRange<Float>,
     steps: Int,
     onChange: (Float) -> Unit,
+    unit: String = "dp",
 ) {
     var current by remember(value) { mutableStateOf(value) }
     Surface(shape = androidx.compose.foundation.shape.RoundedCornerShape(Corner.Card), color = MaterialTheme.colorScheme.surfaceContainerHigh, modifier = Modifier.fillMaxWidth()) {
@@ -130,7 +131,7 @@ private fun LookSlider(
                 Text(label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
                 Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primaryContainer, contentColor = MaterialTheme.colorScheme.onPrimaryContainer) {
                     Text(
-                        "${current.roundToInt()} dp",
+                        "${current.roundToInt()} $unit",
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp),
@@ -186,4 +187,35 @@ fun BottomBarSections() {
         )
         TextButton(onClick = { BriefLook.resetBar(context) }) { Text(stringResource(R.string.list_look_reset)) }
     }
+}
+
+/** Brief You: how the glass looks, with every part adjustable. Shown under the glass switch. */
+@Composable
+fun GlassCustomSections() {
+    val context = LocalContext.current
+    me.ash.reader.brief.ui.glass.BriefGlass.init(context)
+    val g = me.ash.reader.brief.ui.glass.BriefGlass
+    Subtitle(modifier = Modifier.padding(horizontal = 24.dp), text = stringResource(R.string.glass_customise))
+    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        LookSlider(Icons.Outlined.CropSquare, stringResource(R.string.glass_blur), g.blurDp(), 0f..30f, 29, { g.setBlur(context, it) })
+        Spacer(Modifier.size(2.dp))
+        LookSlider(Icons.Outlined.CropSquare, stringResource(R.string.glass_frost), g.frostPct(), 0f..80f, 15, { g.setFrost(context, it) }, unit = "%")
+        Spacer(Modifier.size(2.dp))
+        LookSlider(Icons.Outlined.CropSquare, stringResource(R.string.glass_tint), g.tintPct(), 0f..80f, 15, { g.setTint(context, it) }, unit = "%")
+        Spacer(Modifier.size(2.dp))
+        LookSlider(Icons.Outlined.CropSquare, stringResource(R.string.glass_saturation), g.saturationPct(), 50f..250f, 19, { g.setSaturation(context, it) }, unit = "%")
+    }
+    SettingGroup {
+        SettingItem(
+            title = stringResource(R.string.glass_refraction),
+            desc = stringResource(R.string.glass_refraction_desc),
+            onClick = { g.setRefraction(context, !g.refractionOn()) },
+        ) { me.ash.reader.ui.component.base.RYSwitch(activated = g.refractionOn()) { g.setRefraction(context, !g.refractionOn()) } }
+        SettingItem(
+            title = stringResource(R.string.glass_outline),
+            desc = stringResource(R.string.glass_outline_desc),
+            onClick = { g.setOutline(context, !g.outlineOn()) },
+        ) { me.ash.reader.ui.component.base.RYSwitch(activated = g.outlineOn()) { g.setOutline(context, !g.outlineOn()) } }
+    }
+    TextButton(modifier = Modifier.padding(horizontal = 16.dp), onClick = { g.reset(context) }) { Text(stringResource(R.string.list_look_reset)) }
 }

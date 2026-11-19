@@ -88,4 +88,6 @@ fun StyleOptionsSections() {
             }
         }
     }
+
+    GlassCustomSections()
 }

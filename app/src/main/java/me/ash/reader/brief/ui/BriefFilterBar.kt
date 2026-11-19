@@ -110,8 +110,6 @@ fun BriefFilterBar(
         contentColor = MaterialTheme.colorScheme.contentColorFor(barColor),
         shape = RoundedCornerShape(if (classic) 0.dp else 32.dp), // Brief You: same shape type for both designs
         shadowElevation = if (classic) 0.dp else 6.dp,
-        rim = !classic,
-        tinted = classic,
     ) {
         Row(
             modifier =
