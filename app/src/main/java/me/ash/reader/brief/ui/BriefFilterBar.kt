@@ -74,6 +74,7 @@ fun BriefFilterBar(
     me.ash.reader.brief.ui.style.BriefLook.init(LocalView.current.context)
     val classic = me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic
 
+    val insideInsets = classic && me.ash.reader.brief.ui.style.BriefLook.barBottom == 0f
     // A fade to black behind the bar: clear at the top, fully black from the bottom of the bar down
     // to the screen edge, so nothing shows below the bar. On a light theme it fades into the page
     // color instead, since black would look harsh there.
@@ -98,13 +99,8 @@ fun BriefFilterBar(
                         )
                     )
                 })
-                // Brief You: Classic fills the gesture area under the bar with the bar's colour (unless glass shows through).
-                .then(
-                    if (classic && !(me.ash.reader.brief.ui.glass.glassActive() && me.ash.reader.brief.ui.glass.GlassHost.backdrop != null))
-                        Modifier.background(MaterialTheme.colorScheme.surfaceContainer)
-                    else Modifier
-                )
-                .windowInsetsPadding(NavigationBarDefaults.windowInsets)
+                // Brief You: a flat Classic bar with no gap below it draws itself down to the screen edge (insets inside it).
+                .then(if (insideInsets) Modifier else Modifier.windowInsetsPadding(NavigationBarDefaults.windowInsets))
                 .padding(start = me.ash.reader.brief.ui.style.BriefLook.barSideDp().dp, end = me.ash.reader.brief.ui.style.BriefLook.barSideDp().dp, top = if (classic) 0.dp else FILTER_BAR_TOP_PADDING, bottom = me.ash.reader.brief.ui.style.BriefLook.barBottom.dp)
     ) {
     val barColor = if (classic) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.surfaceColorAtElevation(filterBarTonalElevation)
@@ -115,10 +111,12 @@ fun BriefFilterBar(
         shape = RoundedCornerShape(if (classic) 0.dp else 32.dp), // Brief You: same shape type for both designs
         shadowElevation = if (classic) 0.dp else 6.dp,
         rim = !classic,
+        tinted = classic,
     ) {
         Row(
             modifier =
             Modifier
+                .then(if (insideInsets) Modifier.windowInsetsPadding(NavigationBarDefaults.windowInsets) else Modifier)
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = containerHeight)
                 .selectableGroup(),

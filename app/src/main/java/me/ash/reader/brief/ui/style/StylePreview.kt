@@ -58,24 +58,27 @@ fun StylePreview(modifier: Modifier = Modifier) {
             Chip(c.tertiaryContainer)
             Chip(c.surfaceContainerHigh)
         }
-        // The floating bar and its main button.
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(
-                modifier =
-                    Modifier.weight(1f)
-                        .height(28.dp)
-                        .clip(CircleShape)
-                        .background(c.secondaryContainer)
-                        .padding(horizontal = 10.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Dot(10.dp, c.onSecondaryContainer)
-                Dot(10.dp, c.onSecondaryContainer)
-                Dot(10.dp, c.onSecondaryContainer)
-            }
-            Box(Modifier.size(28.dp).clip(CircleShape).background(c.primary))
+        // The bottom bar, drawn from the real bar settings: thickness, distance from the sides and from the bottom.
+        val classic = BriefStyle.design == DesignStyle.Classic
+        val barHeight = (BriefLook.barHeightDp(true) * 0.4f).dp
+        val side = (BriefLook.barSideDp() * 0.4f).dp
+        val bottom = (BriefLook.barBottom * 0.4f).dp
+        Row(
+            modifier =
+                Modifier.fillMaxWidth()
+                    .padding(horizontal = side)
+                    .height(barHeight)
+                    .clip(if (classic) androidx.compose.ui.graphics.RectangleShape else RoundedCornerShape(12.dp))
+                    .background(c.secondaryContainer)
+                    .padding(horizontal = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Dot(10.dp, c.onSecondaryContainer)
+            Box(Modifier.width(30.dp).height(16.dp).clip(CircleShape).background(c.primary))
+            Dot(10.dp, c.onSecondaryContainer)
         }
+        Spacer(Modifier.height(bottom))
     }
 }
 

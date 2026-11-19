@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
+
 package me.ash.reader.ui.page.settings.color
 
 import android.content.Context
@@ -126,24 +128,23 @@ fun ColorAndStylePage(
                 item {
                     DisplayText(text = stringResource(R.string.color_and_style), desc = "")
                 }
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 24.dp)
-                            .aspectRatio(1.38f)
-                            .clip(RoundedCornerShape(24.dp))
-                            .background(
-                                MaterialTheme.colorScheme.surfaceContainerLow
-                            )
-                            .clickable { },
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        // Brief You: a live picture of the app in your chosen colours, instead of the fixed palette picture
-                        me.ash.reader.brief.ui.style.StylePreview(modifier = Modifier.padding(20.dp))
+                // Brief You: the preview stays on screen while you scroll, so every change shows at once.
+                stickyHeader {
+                    Column(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface)) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 24.dp)
+                                .height(210.dp)
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(MaterialTheme.colorScheme.surfaceContainerLow),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            me.ash.reader.brief.ui.style.StylePreview(modifier = Modifier.padding(16.dp))
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
                     }
-                    Spacer(modifier = Modifier.height(24.dp))
                 }
                 item {
                     BlockRadioButton(
