@@ -99,6 +99,12 @@ fun BriefFilterBar(
                         )
                     )
                 })
+                // Brief You: Classic fills the gesture area under the bar with the bar's colour (unless glass shows through).
+                .then(
+                    if (classic && !(me.ash.reader.brief.ui.glass.glassActive() && me.ash.reader.brief.ui.glass.GlassHost.backdrop != null))
+                        Modifier.background(MaterialTheme.colorScheme.surfaceContainer)
+                    else Modifier
+                )
                 .windowInsetsPadding(NavigationBarDefaults.windowInsets)
                 .padding(start = if (classic) 0.dp else 20.dp, end = if (classic) 0.dp else 20.dp, top = if (classic) 0.dp else FILTER_BAR_TOP_PADDING)
     ) {
