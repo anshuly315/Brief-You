@@ -565,7 +565,7 @@ private fun ResultLine(text: String, problem: Boolean, busy: Boolean = false) {
     ) {
         if (busy) {
             // Restoring: the Expressive loading shape in place of the tick.
-            androidx.compose.material3.LoadingIndicator(modifier = Modifier.size(24.dp))
+            me.ash.reader.brief.ui.BriefLoading(modifier = Modifier.size(24.dp))
         } else {
             Icon(
                 if (problem) Icons.Rounded.ErrorOutline else Icons.Rounded.Check,

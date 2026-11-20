@@ -284,7 +284,7 @@ fun SummarySheet(
                             modifier = Modifier.fillMaxWidth().padding(top = 48.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-                            LoadingIndicator(modifier = Modifier.size(56.dp))
+                            me.ash.reader.brief.ui.BriefLoading(modifier = Modifier.size(56.dp))
                             Spacer(Modifier.height(16.dp))
                             Text(
                                 stringResource(R.string.ai_summary_thinking),
@@ -765,7 +765,7 @@ private fun AskConversation(asks: List<AskTurn>) {
                                 color = MaterialTheme.colorScheme.error,
                             )
                         turn.answer.isEmpty() && !turn.done ->
-                            LoadingIndicator(modifier = Modifier.size(28.dp))
+                            me.ash.reader.brief.ui.BriefLoading(modifier = Modifier.size(28.dp))
                         else ->
                             Text(
                                 turn.answer + if (turn.done) "" else " \u258D",

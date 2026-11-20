@@ -2286,7 +2286,7 @@ private fun NextCard(
                 // Turned back the other way, so only the shape turns and the icon stays upright.
                 Box(Modifier.graphicsLayer { rotationZ = -turn }, contentAlignment = Alignment.Center) {
                 if (loading) {
-                    LoadingIndicator(
+                    me.ash.reader.brief.ui.BriefLoading(
                         modifier = Modifier.size(32.dp),
                         color = MaterialTheme.colorScheme.onPrimary,
                     )

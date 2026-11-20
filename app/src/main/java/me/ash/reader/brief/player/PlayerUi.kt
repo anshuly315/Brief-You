@@ -493,7 +493,7 @@ internal fun PlayButton(
                     .background(container)
         )
         if (buffering) {
-            LoadingIndicator(modifier = Modifier.size(size * 0.6f), color = content)
+            me.ash.reader.brief.ui.BriefLoading(modifier = Modifier.size(size * 0.6f), color = content)
         } else {
             AnimatedContent(
                 targetState = playing,

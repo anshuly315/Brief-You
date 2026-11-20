@@ -82,7 +82,7 @@ fun Content(
         }
 
     if (isLoading) {
-        Column { LoadingIndicator(modifier = Modifier.size(56.dp)) }
+        Column { me.ash.reader.brief.ui.BriefLoading(modifier = Modifier.size(56.dp)) }
     } else {
 
         when (renderer) {

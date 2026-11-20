@@ -91,7 +91,7 @@ fun BannerCookie(icon: androidx.compose.ui.graphics.vector.ImageVector, tint: an
         modifier =
             Modifier.size(40.dp)
                 .graphicsLayer { rotationZ = press?.turn ?: 0f }
-                .clip(androidx.compose.material3.MaterialShapes.Cookie9Sided.toShape())
+                .clip(if (me.ash.reader.brief.ui.style.BriefStyle.design == me.ash.reader.brief.ui.style.DesignStyle.Classic) androidx.compose.foundation.shape.CircleShape else androidx.compose.material3.MaterialShapes.Cookie9Sided.toShape()) // Brief You: a circle in Classic
                 .background(tint.copy(alpha = 0.12f)),
         contentAlignment = androidx.compose.ui.Alignment.Center,
     ) {

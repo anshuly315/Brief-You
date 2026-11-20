@@ -51,6 +51,7 @@ fun filterBarContainerHeight(filterBarStyle: Int): Dp =
  */
 val FloatingBarGap = 12.dp
 
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun BriefFilterBar(
     modifier: Modifier = Modifier,
@@ -124,6 +125,10 @@ fun BriefFilterBar(
         ) {
 
             Spacer(modifier = Modifier.width(filterBarPadding))
+            // Brief You: Classic has no pill-shaped press highlight around a tab (its own square marks the selected one).
+            androidx.compose.runtime.CompositionLocalProvider(
+                androidx.compose.material3.LocalRippleConfiguration provides (if (classic) null else androidx.compose.material3.LocalRippleConfiguration.current)
+            ) {
             Filter.values.forEach { item ->
                 NavigationBarItem(
                     modifier = Modifier.height(containerHeight),
@@ -180,6 +185,7 @@ fun BriefFilterBar(
                         selectedTextColor = MaterialTheme.colorScheme.onSurface
                     )
                 )
+            }
             }
             Spacer(modifier = Modifier.width(filterBarPadding))
         }

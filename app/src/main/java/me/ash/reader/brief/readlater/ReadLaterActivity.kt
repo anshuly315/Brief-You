@@ -233,7 +233,7 @@ class ReadLaterActivity : ComponentActivity() {
             horizontalArrangement = Arrangement.spacedBy(14.dp),
             modifier = Modifier.padding(vertical = 18.dp),
         ) {
-            LoadingIndicator(modifier = Modifier.size(40.dp))
+            me.ash.reader.brief.ui.BriefLoading(modifier = Modifier.size(40.dp))
             Text(
                 text = stringResource(R.string.read_later_saving),
                 style = MaterialTheme.typography.titleMedium,
