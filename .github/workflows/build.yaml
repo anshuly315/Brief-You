@@ -61,7 +61,9 @@ jobs:
               # This workflow's run number: 1, 2, 3… (it started again at 1 when the workflow
               # was renamed to build.yaml). It's also the app's version code, so each build
               # installs as an update over the one before.
-              run: echo "CI_BUILD_NUMBER=${{ github.run_number }}" >> "$GITHUB_ENV"
+              # Lede continues above the numbers the earlier Brief You test builds used (they reached 21),
+              # so a phone that has one of those installs this as an update, not a downgrade.
+              run: echo "CI_BUILD_NUMBER=$(( ${{ github.run_number }} + 100 ))" >> "$GITHUB_ENV"
 
             - name: Use Brief You's signing key
               # Builds are signed with the key in the repo's secrets, never with Read You's public
