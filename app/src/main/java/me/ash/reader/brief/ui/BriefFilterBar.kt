@@ -8,6 +8,7 @@ import android.os.Build
 import android.view.SoundEffectConstants
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -132,7 +134,10 @@ fun BriefFilterBar(
                 androidx.compose.material3.LocalRippleConfiguration provides (if (classic) null else androidx.compose.material3.LocalRippleConfiguration.current)
             ) {
             Filter.values.forEach { item ->
+                val interaction = androidx.compose.runtime.remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
+                val pressed by interaction.collectIsPressedAsState()
                 NavigationBarItem(
+                    interactionSource = interaction,
                     modifier = Modifier.height(containerHeight),
                     alwaysShowLabel = when (filterBarStyle) {
                         FlowFilterBarStylePreference.Icon.value -> false
@@ -155,6 +160,7 @@ fun BriefFilterBar(
                         // Classic: a small rounded square, Expressive: a pill. With glass on it is a translucent tint.
                         BarIndicator(
                             selected = filter == item,
+                            pressed = pressed,
                             shape = if (classic) RoundedCornerShape(8.dp) else RoundedCornerShape(50),
                             color = if (glassBar) MaterialTheme.colorScheme.primary.copy(alpha = 0.30f) else indicatorColor,
                         ) { glyph() }
@@ -197,6 +203,7 @@ fun BriefFilterBar(
 @Composable
 private fun BarIndicator(
     selected: Boolean,
+    pressed: Boolean,
     shape: androidx.compose.ui.graphics.Shape,
     color: Color,
     content: @Composable () -> Unit,
@@ -214,16 +221,25 @@ private fun BarIndicator(
             )
         }
     }
+    // Held down: the highlight swells under the finger, like a drop of glass, and springs back when let go.
+    val swell by androidx.compose.animation.core.animateFloatAsState(
+        targetValue = if (pressed) 1.22f else 1f,
+        animationSpec = androidx.compose.animation.core.spring(
+            dampingRatio = 0.5f,
+            stiffness = androidx.compose.animation.core.Spring.StiffnessMediumLow,
+        ),
+        label = "swell",
+    )
     Box(
         modifier = Modifier
             .graphicsLayer {
                 val w = wiggle.value
                 rotationZ = 5f * w
-                scaleX = 1f + 0.10f * w
-                scaleY = 1f + 0.10f * w
+                scaleX = (1f + 0.10f * w) * swell
+                scaleY = (1f + 0.10f * w) * swell
             }
             .clip(shape)
-            .background(if (selected) color else Color.Transparent)
+            .background(if (selected) color else if (pressed) color.copy(alpha = color.alpha * 0.7f) else Color.Transparent)
             .padding(horizontal = 20.dp, vertical = 4.dp)
     ) { content() }
 }
