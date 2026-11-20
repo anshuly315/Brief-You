@@ -129,9 +129,9 @@ fun BriefFilterBar(
         ) {
 
             Spacer(modifier = Modifier.width(filterBarPadding))
-            // Brief You: Classic has no pill-shaped press highlight around a tab (its own square marks the selected one).
+            // Brief You: Classic and glass have no pill-shaped press highlight around a tab (its own square marks the selected one).
             androidx.compose.runtime.CompositionLocalProvider(
-                androidx.compose.material3.LocalRippleConfiguration provides (if (classic) null else androidx.compose.material3.LocalRippleConfiguration.current)
+                androidx.compose.material3.LocalRippleConfiguration provides (if (classic || glassBar) null else androidx.compose.material3.LocalRippleConfiguration.current)
             ) {
             Filter.values.forEach { item ->
                 val interaction = androidx.compose.runtime.remember { androidx.compose.foundation.interaction.MutableInteractionSource() }

@@ -723,7 +723,7 @@ fun FlowPage(
                             )
                             .also { currentPullToLoadState = it }
 
-                    Box(modifier = Modifier.fillMaxSize()) {
+                    Box(modifier = Modifier.fillMaxSize().then(me.ash.reader.brief.ui.glass.rememberGlassSource())) { // Brief You: what the glass bar refracts
                         LazyColumn(
                             modifier =
                                 Modifier.nestedScroll(brief.listScroll) // Brief You
