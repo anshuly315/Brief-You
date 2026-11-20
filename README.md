@@ -224,7 +224,7 @@ Brief You is a fork of [Read You](https://github.com/ReadYouApp/ReadYou). It kee
 - Release names are Read You's version plus a rising build number, so each APK installs as an update (works with Obtainium). The notes say which Read You version a build is based on.
 - APKs are for 64-bit ARM phones (arm64-v8a).
 - Builds are signed with Brief You's own key when the repository has the `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD` and `KEY_ALIAS` secrets.
-- Read You updates: a daily workflow merges Read You's new commits into a `read-you-sync` branch and opens (or updates) a pull request called *Read You update*. Nothing is built or signed until you merge it. For the pull request to open by itself, allow it in *Settings → Actions → General → Allow GitHub Actions to create and approve pull requests*.
+- Brief You updates: a daily workflow only reads new commits from [Brief You](https://github.com/Humorist2601/BriefYou) (the app Lede started from), merges them into a `brief-you-sync` branch here and opens (or updates) a pull request called *Brief You update*. Nothing is ever pushed to Brief You, and nothing is built or signed until you merge it. For the pull request to open by itself, allow it in *Settings → Actions → General → Allow GitHub Actions to create and approve pull requests*. Delete `.github/workflows/sync.yaml` to stop following it.
 - Brief You Nightly (app ID `com.ay.briefyou.nightly`) has its own data and its own build numbers, so test builds never use up release numbers. Each test build replaces the *Nightly* prerelease, and it doesn't offer Brief You's releases as updates.
 - To tidy up, run **Actions → Clean up old releases, tags and runs** by hand. It keeps only the latest of everything: the newest release (and the Nightly), the newest run of each workflow, the kept releases' tags, and branches with work not yet in main (merged branches are deleted). It starts as a dry run that only lists what it would delete.
 
@@ -287,6 +287,8 @@ Open the project in [Android Studio](https://developer.android.com/studio) and r
 
 The glass effect comes from [SimpMusic](https://github.com/maxrave-dev/SimpMusic) by maxrave-dev (GPL-3.0).
 
-Brief You is built on [**Read You**](https://github.com/ReadYouApp/ReadYou) by [Ashinch](https://github.com/Ashinch) and its contributors. All credit for the original app goes to them, and Brief You picks up its updates. If you like the app, consider [supporting Read You](https://ash7.io/sponsor).
+Brief You is built on [**Read You**](https://github.com/ReadYouApp/ReadYou) by [Ashinch](https://github.com/Ashinch) and its contributors. All credit for the original app goes to them. If you like the app, consider [supporting Read You](https://ash7.io/sponsor).
+
+**Lede** is an independent project, now developed on its own. It began as a copy of [Brief You](https://github.com/Humorist2601/BriefYou) (by Humorist2601), which is itself built on Read You, and it carries on their history and licence. It is a modified version: the changes are in this repository's commit history. It can follow Brief You's updates but never sends anything back.
 
 Free software under the [**GNU GPL 3.0**](LICENSE). Gemma is provided under Google's Gemma terms; Brief You doesn't include the model, you download it yourself. The README's pictures use [Material Symbols](https://github.com/google/material-design-icons) (Apache 2.0) and Google Sans Flex.
