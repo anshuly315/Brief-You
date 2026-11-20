@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.style.TextOverflow
@@ -64,6 +65,7 @@ fun BriefFilterBar(
 ) {
     val view = LocalView.current
     val themeIndex = LocalThemeIndex.current
+    val glassBar = me.ash.reader.brief.ui.glass.glassActive() && me.ash.reader.brief.ui.glass.GlassHost.backdrop != null
     val indicatorColor = if (themeIndex == 5 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         MaterialTheme.colorScheme.secondaryContainer
     } else {
@@ -149,15 +151,13 @@ fun BriefFilterBar(
                                 contentDescription = item.toName()
                             )
                         }
-                        if (classic) {
-                            // Brief You: Classic Material 3 draws its own indicator, a small rounded square instead of a pill.
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(if (filter == item) indicatorColor else Color.Transparent)
-                                    .padding(horizontal = 20.dp, vertical = 4.dp)
-                            ) { glyph() }
-                        } else glyph()
+                        // Brief You: the bar draws its own indicator, which wiggles a little when its tab is picked.
+                        // Classic: a small rounded square, Expressive: a pill. With glass on it is a translucent tint.
+                        BarIndicator(
+                            selected = filter == item,
+                            shape = if (classic) RoundedCornerShape(8.dp) else RoundedCornerShape(50),
+                            color = if (glassBar) MaterialTheme.colorScheme.primary.copy(alpha = 0.30f) else indicatorColor,
+                        ) { glyph() }
                     },
                     label = if (filterBarStyle == FlowFilterBarStylePreference.Icon.value) {
                         null
@@ -178,9 +178,9 @@ fun BriefFilterBar(
                         filterOnClick(item)
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        indicatorColor = if (classic) Color.Transparent else indicatorColor,
+                        indicatorColor = Color.Transparent,
                         unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        selectedIconColor = MaterialTheme.colorScheme.contentColorFor(indicatorColor),
+                        selectedIconColor = if (glassBar) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.contentColorFor(indicatorColor),
                         unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         selectedTextColor = MaterialTheme.colorScheme.onSurface
                     )
@@ -191,4 +191,39 @@ fun BriefFilterBar(
         }
     }
     } // Brief You
+}
+
+/** A tab's highlight: it wiggles a little (a small turn and swell, settling like a spring) each time its tab is picked. */
+@Composable
+private fun BarIndicator(
+    selected: Boolean,
+    shape: androidx.compose.ui.graphics.Shape,
+    color: Color,
+    content: @Composable () -> Unit,
+) {
+    val wiggle = androidx.compose.runtime.remember { androidx.compose.animation.core.Animatable(0f) }
+    androidx.compose.runtime.LaunchedEffect(selected) {
+        if (selected) {
+            wiggle.snapTo(1f)
+            wiggle.animateTo(
+                0f,
+                androidx.compose.animation.core.spring(
+                    dampingRatio = 0.28f,
+                    stiffness = androidx.compose.animation.core.Spring.StiffnessMediumLow,
+                ),
+            )
+        }
+    }
+    Box(
+        modifier = Modifier
+            .graphicsLayer {
+                val w = wiggle.value
+                rotationZ = 5f * w
+                scaleX = 1f + 0.10f * w
+                scaleY = 1f + 0.10f * w
+            }
+            .clip(shape)
+            .background(if (selected) color else Color.Transparent)
+            .padding(horizontal = 20.dp, vertical = 4.dp)
+    ) { content() }
 }
